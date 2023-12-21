@@ -1,12 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:selfeey/Log%20in/login_page.dart';
 import 'package:selfeey/Pages/home_page.dart';
 import 'package:selfeey/Pages/post_page.dart';
 import 'package:selfeey/Pages/shorts/shorts_page.dart';
 import 'package:selfeey/Pages/shorts/shorts_preview_page.dart';
+import 'package:selfeey/widget/loading_widget.dart';
 
 import '../components/drawer_pages/Bill.dart';
 import '../components/drawer_pages/Helpandsupport.dart';
@@ -35,6 +39,8 @@ class BottomNavBar extends StatefulWidget {
 class _HomeScreenState extends State<BottomNavBar> {
   int selectedIndex = 0;
 
+  bool defaultLoading = false;
+
   final _advancedDrawerController = AdvancedDrawerController();
 
   @override
@@ -56,12 +62,13 @@ class _HomeScreenState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return AdvancedDrawer(
       controller: _advancedDrawerController,
-      backdropColor: Colors.white70,
+      backdropColor: Colors.white,
       openRatio: 0.7,
       openScale: 0.8,
       rtlOpening: true,
       childDecoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1,color: Colors.grey.shade400)
       ),
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 300),
@@ -103,8 +110,10 @@ class _HomeScreenState extends State<BottomNavBar> {
               title: Text('Suggestion & Feedback'),
             ),
             ListTile(
-              onTap: () {},
-              leading: Icon(Icons.home),
+              onTap: () {
+                Get.to(FaqPage());
+              },
+              leading: Icon(CupertinoIcons.quote_bubble_fill),
               title: Text('FAQ'),
             ),
             ListTile(
@@ -129,8 +138,26 @@ class _HomeScreenState extends State<BottomNavBar> {
             ),
             ListTile(
               onTap: () {},
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.settings),
               title: Text('Settings'),
+            ),
+            ListTile(
+              onTap: () async {
+
+               _advancedDrawerController.hideDrawer();
+                await Future.delayed(const Duration(milliseconds: 1000));
+                setState(() {
+                  defaultLoading=true;
+                });
+               await logOut();
+               Get.to(LogIn());
+               //dont need after redirecting next but i give just for testing purpose
+                setState(() {
+                  defaultLoading=false;
+                });
+              },
+              leading: Icon(Icons.logout),
+              title: Text('Log Out'),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,7 +178,7 @@ class _HomeScreenState extends State<BottomNavBar> {
           ],
         ),
       ),),
-      child: Scaffold(
+      child: defaultLoading ? DefaultLoading():Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -211,6 +238,16 @@ class _HomeScreenState extends State<BottomNavBar> {
     // NOTICE: Manage Advanced Drawer state through the Controller.
     // _advancedDrawerController.value = AdvancedDrawerValue.visible();
     _advancedDrawerController.showDrawer();
+  }
+
+  logOut() async {
+    try {
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.disconnect();
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print('can not signOut as : $e');
+    }
   }
 
 }

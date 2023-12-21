@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "712701869453",
+    "project_id": "selfeeyconsultants",
+    "storage_bucket": "selfeeyconsultants.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712701869453:android:9c05ebba6dddbc287091c4",
+        "android_client_info": {
+          "package_name": "com.selfeey.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712701869453-oqmtoavn4s2vq3jis7a5gm7cueammh7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgBpvIOxKFfsjiJqRdiuPL3tz-HXcMBnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712701869453-2i5ndifsvr90c2fg6kpnjbvsqahe1b03.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712701869453-a4kvbo42fd2n55hn89diedni0e1i9auc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.selfeey.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712701869453:android:6e561d2c738fb42b7091c4",
+        "android_client_info": {
+          "package_name": "com.selfeey.app.selfeey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712701869453-oqmtoavn4s2vq3jis7a5gm7cueammh7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgBpvIOxKFfsjiJqRdiuPL3tz-HXcMBnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712701869453-2i5ndifsvr90c2fg6kpnjbvsqahe1b03.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712701869453-a4kvbo42fd2n55hn89diedni0e1i9auc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.selfeey.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712701869453:android:29d7ac6542b7dcba7091c4",
+        "android_client_info": {
+          "package_name": "com.selfeey.selfeeyconsultants"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712701869453-oqmtoavn4s2vq3jis7a5gm7cueammh7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgBpvIOxKFfsjiJqRdiuPL3tz-HXcMBnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712701869453-2i5ndifsvr90c2fg6kpnjbvsqahe1b03.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712701869453-a4kvbo42fd2n55hn89diedni0e1i9auc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.selfeey.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

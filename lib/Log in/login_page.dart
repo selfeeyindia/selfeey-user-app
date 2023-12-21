@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:country_codes/country_codes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,9 +11,17 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import 'package:selfeey/Log%20in/otp_page.dart';
+import 'package:selfeey/Pages/bottom_nav_bar.dart';
+import 'package:selfeey/widget/loading_widget.dart';
+
+import 'Personal Information/name.dart';
+import 'google_auth.dart';
+import 'loginpageview/loginpageview.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
+
+  static bool onEmailClick=false;
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -24,6 +33,13 @@ class _LogInState extends State<LogIn> {
   bool sendOtpButton = false;
   bool otpSection = false;
 
+
+  bool defaultLoading = false;
+
+  //firebase
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final AuthMethods _authMethods = AuthMethods();
+
   // slider index
   int currentIndex = 0;
   // slider controller
@@ -34,10 +50,9 @@ class _LogInState extends State<LogIn> {
 
 
   // resend otp timer
-  int secondsRemaining = 30;
-  int _start = 30;
+ // int secondsRemaining = 30;
   bool enableResend = false;
-  late Timer timer;
+
 
   @override
   void initState() {
@@ -50,13 +65,13 @@ class _LogInState extends State<LogIn> {
 
   @override
   dispose(){
-    timer.cancel();
+
     super.dispose();
   }
   void _resendCode() {
     //other code here
     setState((){
-      secondsRemaining = 30;
+     // secondsRemaining = 30;
       enableResend = false;
     });
   }
@@ -107,7 +122,7 @@ class _LogInState extends State<LogIn> {
     );
 
 
-    return Scaffold(
+    return defaultLoading ? DefaultLoading():Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
 
@@ -288,9 +303,9 @@ class _LogInState extends State<LogIn> {
                           ),
                           TextButton(onPressed: (){
                             setState(() {
-                              sendOtpButton=false;
                               otpSection=false;
                               enableResend=false;
+                              sendOtpButton=false;
                               phoneNumberController.clear();
                             });
                           }, child: Text('Edit Phone Number?',style: TextStyle(fontFamily: 'Calibri'),)),
@@ -372,7 +387,8 @@ class _LogInState extends State<LogIn> {
                                     }
                                     print(value.length);
                                   },
-                                ))
+                                )
+                                )
                               ],
                             ),
                           ),
@@ -420,6 +436,7 @@ class _LogInState extends State<LogIn> {
                               onPressed: () async {
                                 setState(() {
                                   otpSection = true;
+                                 // LogIn.onNumberClick=true;
                                 });
                                 await Fluttertoast.showToast(
                                     msg:
@@ -442,8 +459,29 @@ class _LogInState extends State<LogIn> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: GestureDetector(
-                          onTap: () {
-                            print('Google');
+                          onTap: () async {
+                            setState(() {
+                              defaultLoading=true;
+                            });
+
+                            bool result = await _authMethods.signInWithGoogle();
+                            print('Google Login $result');
+                            final User? user = auth.currentUser;
+                            final uid = user?.uid;
+                            final userEmail = user?.email;
+                            print("$uid Current user uid...");
+                            print("$userEmail Current user Email...");
+
+                            if(result ==true){
+                              setState(() {
+                                defaultLoading=true;
+                                LogIn.onEmailClick=true;
+                              });
+                             // Get.offAll(Name());
+                             Get.offAll(BottomNavBar());
+                            }
+
+                           // print('Google');
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.065,

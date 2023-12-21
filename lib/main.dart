@@ -1,7 +1,10 @@
 import 'package:country_codes/country_codes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:selfeey/Log%20in/login_page.dart';
+import 'package:selfeey/widget/loading_widget.dart';
 
 import 'Pages/bottom_nav_bar.dart';
 import 'Pages/home_page.dart';
@@ -9,6 +12,9 @@ import 'Pages/shorts/shorts_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await Firebase.initializeApp();
   await CountryCodes.init();
   runApp(const MyApp());
 }
@@ -35,7 +41,8 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
        home: const LogIn(),
-       //home: const BottomNavBar(),
+
+     // home: const BottomNavBar(),
     );
   }
 }
